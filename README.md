@@ -43,8 +43,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Other references
 
-* [SSCM][Ref1]
-* [EigOpt][Ref2]
+* [Subspace Acceleration for Large-Scale Parameter-Dependent Hermitian Eigenproblems][Ref1]
+* [Numerical Optimization of Eigenvalues of Hermitian Matrix Functions][Ref2]
 
 ## Contacts
 
