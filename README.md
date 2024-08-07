@@ -25,7 +25,7 @@ Algorithm 3 Func.:
 * **lamin\_error_all\_sig**: given a parameter $\mu$ the function evaluates $H^{(j)}(\mu)$ for the matrix $A(\mu)^{*}A(\mu)$, see [----][arxiv-url];
 
 
-eigopt: the folder containing the functions that perform the optimization over the continuum domain $\mathcal{D}$, it is based on the software $\mathrm{EigOpt}$, see [EigOpt][Ref2];
+eigopt: the folder containing the functions that perform the optimization over the continuum domain $\mathcal{D}$, it is based on the software [EigOpt][Ref2];
 
 Plot_Functions: scripts created to visualize the results;
 
