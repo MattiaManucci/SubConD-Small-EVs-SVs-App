@@ -10,7 +10,7 @@ eigenvalue by the one obtained by projecting the large matrix onto a suitable (s
 
 * **Script\_Numerical\_Experiments**: the main script to run to reproduce the numerical experiments.
 
-* **subspace\_SCMM**: script the reproduce the method described in [----][Ref1].
+* **subspace\_SCMM**: script the reproduce the method described in [P. Sirković and D. Kressner][Ref1].
 
 Algorithm 2 Func.:
 
@@ -25,7 +25,7 @@ Algorithm 3 Func.:
 * **lamin\_error_all\_sig**: given a parameter $\mu$ the function evaluates $H^{(j)}(\mu)$ for the matrix $A(\mu)^{*}A(\mu)$, see [----][arxiv-url];
 
 
-eigopt: folder containing the functions that perform the optimization over the continuum domain $\mathcal{D}$, it is based on the software \texttt{EigOpt}, see [EigOpt][Ref2];
+eigopt: the folder containing the functions that perform the optimization over the continuum domain $\mathcal{D}$, it is based on the software $\mathrm{EigOpt}$, see [EigOpt][Ref2];
 
 Plot_Functions: scripts created to visualize the results;
 
