@@ -55,7 +55,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 
 [doi-shield]: https://img.shields.io/badge/DOI-10.5281%20%2F%20zenodo.8335231-blue.svg?style=for-the-badge
-[doi-url]:------
+[doi-url]: 10.5281/zenodo.13254480
 [arxiv-shield]: https://img.shields.io/badge/arXiv-2204.13474-b31b1b.svg?style=for-the-badge
 [arxiv-url]:------
 
