@@ -59,5 +59,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [arxiv-shield]: https://img.shields.io/badge/arXiv-2204.13474-b31b1b.svg?style=for-the-badge
 [arxiv-url]:------
 
-[Ref1]: [https://doi.org/10.1137/15M101718](https://doi.org/10.1137/15M1017181)
+[Ref1]: https://doi.org/10.1137/15M1017181
 [Ref2]: https://doi.org/10.1137/130933472
