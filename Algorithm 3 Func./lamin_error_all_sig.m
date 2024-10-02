@@ -3,9 +3,6 @@
 % fd: derivative of target function of EigOPt evaluated at mu
 
 %Check parameter is real and in the domain range
-if abs(imag(mu))>0
-    mu=real(mu);
-end
 for i=1:numel(pars.lb)
    if mu(i)<pars.lb(i)
        mu(i)=pars.lb(i);
