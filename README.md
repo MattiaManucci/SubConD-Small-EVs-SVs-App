@@ -8,14 +8,14 @@ eigenvalue by the one obtained by projecting the large matrix onto a suitable (s
 
 ##Code info:
 
-* **Script\_Numerical\_Experiments**: the main script to run to reproduce the numerical experiments.
+* **Script\_Numerical\_Experiments**: the main script to run to reproduce the numerical experiments of [preprint][arxiv-url].
 
 * **subspace\_SCMM**: script the reproduce the method described in [P. Sirković and D. Kressner][Ref1].
 
 Algorithm 2 Func.:
 
 * **approx\_smallesteig\_all**: corresponds to Algorithm 2 in [preprint][arxiv-url];
-* **lamin\_error\_all**: given a parameter $\mu$ the function evaluates $H^{(j)}(\mu)$, see  [preprint][arxiv-url]; 
+* **lamin\_error\_all**: given a parameter $\mu$ the function evaluates $H^{(j)}(\mu)$ (or $H_{r}^{(j)}(\mu)$), see  [preprint][arxiv-url]; 
 
 
 Algorithm 3 Func.:
@@ -23,11 +23,12 @@ Algorithm 3 Func.:
 * **approx\_smallestsig\_all**: corresponds to Algorithm 3 plus Algorithm 2 for the smallest singular value, see [preprint][arxiv-url];
 * **sigma\_error\_all**: given a parameter $\mu$ the function evaluates $S^{(j)}(\mu)$, see [preprint][arxiv-url]; 
 * **lamin\_error_all\_sig**: given a parameter $\mu$ the function evaluates $H^{(j)}(\mu)$ for the matrix $A(\mu)^{*}A(\mu)$, see [preprint][arxiv-url];
+* **approx_PS**: function used to produce Figure 8 of [preprint][arxiv-url];
 
 
-eigopt: the folder containing the functions that perform the optimization over the continuum domain $\mathcal{D}$, it is based on the software [EigOpt][Ref2];
+eigopt: the folder containing the functions that perform the optimization over the continuum domain $\mathcal{D}$, the software is developed by the authors of [EigOpt][Ref2];
 
-Plot_Functions: scripts created to visualize the results;
+Plot\_Functions: a folder that contains functions to visualise the numerical results. In particular: **func_plots** and **LB_ULB\_UB** are used to produce Figure 2 of [preprint][arxiv-url];
 
 <span style="color:red">**NOTE:**</span> download the test matrices for Example 2 [here][link-drive].
 

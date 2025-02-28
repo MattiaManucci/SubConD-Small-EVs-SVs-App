@@ -1,8 +1,9 @@
 function [f,fd] = sigma_error_all(mu,pars)
+%% [1] M. Manucci, E. Mengi and N. Guglielmi, arxiv 2024 
+%% Output
 % f:  target function of EigOPt evaluated at mu
 % fd: derivative of target function of EigOPt evaluated at mu
-
-
+%% --------------------------------------------------------
 if isfield(pars,'opt_method')
     opt_method = pars.opt_method;    
 else    

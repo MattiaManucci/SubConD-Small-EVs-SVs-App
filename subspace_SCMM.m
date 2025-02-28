@@ -1,6 +1,9 @@
 function [ff,curerror,mu,Ared,thetalist, ...
                 mulist,mulist2, eiglist,pars] = subspace_SCMM(A,theta,thetap,bounds,options)
 % Function for the method in [3]
+%% References
+% [1] M. Manucci, E. Mengi and N. Guglielmi, arxiv 2024
+% [2] Mustafa Kilic, Emre Mengi and E. Alper Yildirim, SIMAX 2014
 % [3] P. Sirkovic and D. Kressner, SIMAX 2016
 
 
@@ -20,8 +23,7 @@ n=size(A{1},1);
 dim = length(bounds.lb);
 sp = issparse(A{1});
 
-pars.gamma = -4e4; 
-%pars.gamma = -2*max(eig(A{1} + A{2}));
+pars.gamma = options.gamma; 
 pars.theta = theta;
 pars.thetap = thetap;
 
@@ -88,13 +90,13 @@ for j = 1:num_init_inter
 
     if sp
         
-        [V,D] = eigs(Amu,ne+1,'smallestreal',opts);
-        while (abs(D(1)-D(2))/abs(D(1)))<options.RSG_tol
+        [V,D] = eigs(Amu,ne(j)+1,'smallestreal',opts);
+        while (abs(D(1,1)-D(end,end)))<options.RSG_tol
             ne(j)=ne(j)+1;
-            [V,D] = eigs(Amu,ne+1,'smallestreal',opts);
+            [V,D] = eigs(Amu,ne(j)+1,'smallestreal',opts);
         end
-        Pext = V(:,1:ne);
-        eiglist = [eiglist diag(D(1:ne+1,1:ne+1))];
+        Pext = V(:,1:ne(j));
+        eiglist = [eiglist diag(D(1:ne(j)+1,1:ne(j)+1))];
        
     else
         [V,D] = eig(Amu);
@@ -193,11 +195,12 @@ ne(iter)=1;
     pars.eiglist = eiglist;
     pars.P = P;
     
-    % Uncomment to reproduce Figure 3
-    % pars.itertol=625;
-    % [curerror2,mu2,~]=eigopt('lamin_error_all',bounds,pars); 
-    % ff2=[ff2,curerror2];  mulist2 = [mulist2 mu2];
-
+    %% Lines to reproduce Figure 3a and Figure 3b of [1]
+    pars.itertol=625;
+    %eigopt function developed in [2]
+    [curerror2,mu2,~]=eigopt('lamin_error_all',bounds,pars); 
+    ff2=[ff2,curerror2];  mulist2 = [mulist2 mu2];
+    %% -----------------------------------------------------------
     for ii=1:Ntrain
         [fff(ii),~] = lamin_error_all(mu_t(:,ii),pars);
     end

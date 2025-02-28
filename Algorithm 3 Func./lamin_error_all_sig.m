@@ -1,4 +1,5 @@
  function [f,fd] = lamin_error_all_sig(mu,pars)
+%% [1] M. Manucci, E. Mengi and N. Guglielmi, arxiv 2024 
 % f:  target function of EigOPt evaluated at mu
 % fd: derivative of target function of EigOPt evaluated at mu
 
@@ -38,7 +39,7 @@ end
 Lu = D(inds(1:nr),inds(1:nr));
 %% LB from SirK16---->Algorithm 1 in [1]
 options = pars.options;
-[~,kappa] = size(pars.eiglist); beta=zeros(kappa,1);
+[~,kappa] = size(pars.eiglist); beta=zeros(kappa,1); b=zeros(kappa,1);
 % Computing beta_j(mu)
 for j = 1:kappa
     Li = diag(pars.eiglist{j}(1:ne(j)));

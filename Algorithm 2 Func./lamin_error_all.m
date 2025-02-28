@@ -1,6 +1,12 @@
 function [f,fd] = lamin_error_all(mu,pars)
+%% [1] M. Manucci, E. Mengi and N. Guglielmi, arxiv 2024 
+%% Input
+% mu: scalar-valued parameter
+% pars: stracture containing data
+%% Output
 % f:  target function of EigOPt evaluated at mu
 % fd: derivative of target function of EigOPt evaluated at mu
+%% -------------------------------------------------------------
 if isfield(pars,'opt_method')
     opt_method = pars.opt_method;
 else
@@ -20,10 +26,9 @@ APmu = thetanew(1)*pars.A{1};
 for k = 2:alength
     APmu = APmu + thetanew(k)*pars.A{k};
 end
-[V,D] = eig(APmu);
+[V,D] = eig(APmu); D=real(D);
 [~,inds] = sort(diag(D));
 %% LB from SirK16---->Algorithm 1 in [1]
-Umu = pars.P*V(:,inds(1:nr));
 Lu = D(inds(1:nr),inds(1:nr));
 options = pars.options;
 [~,kappa] = size(pars.eiglist);

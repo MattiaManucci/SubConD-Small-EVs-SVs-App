@@ -5,6 +5,8 @@ clc
 clearvars
 close all
 %% LEGEND OF NUMERICAL EXAMPLES
+fprintf('Please, have a look to the readme.md file. Matrices for test problem 3 have to be dowloanded; see readme.md:\n\n');
+pause(1)
 fprintf('Digit the corresponding integer number to run the test problem:\n\n');
 fprintf('1 for full Hermitian matrix with n=100 and 1 parameter\n');
 fprintf('2 for full Hermitian matrix with n=100 and 2 parameters\n');
@@ -82,9 +84,12 @@ if flag==1
     set(gca,'Fontname',FN,'Fontsize',FS);
     set(gcf, 'Color', 'w');
 
+    %Fig2 (a and b)
+    [~,~,~,~,~,~, ~,~] = func_plots(A,theta,theta_d,bounds,opts);
+
 end
 if flag==2
-     %% The affine decompossition
+    %% The affine decompossition
     load('Data_Test_Problems/Data1')
     theta = @(x)[exp(x(1)), x(2)];
     theta_d = @(x)[exp(x(1)) 0; 0 1];
@@ -97,11 +102,11 @@ if flag==2
     opts.opt_method = 1; 
     opts.tol = 1e-8;
     opts.RSG_tol = 1e-7;
-    opts.EigOptMaxIt= 900;
+    opts.EigOptMaxIt= 625;
     opts.Rel_Error = 1;
     opts.gamma=-4e3;
     %% Comparison with Subspace SCM
-    opts.Nt = 40; %Discret grid---> opts.Nt \times opts.Nt
+    opts.Nt = 25; %Discret grid---> opts.Nt \times opts.Nt
     [f2,curerror,mu_SSCM,Ared_sub,thetalist,mulist,mulist3,eiglist_SSCM,pars_SSCM] = subspace_SCMM(A,theta,theta_d,bounds,opts);
     %% RUN ALGORITHM 2 [1]
     [f,Ared,mulist2,eiglist,pars] = approx_smallesteig_all(A,theta,theta_d,bounds,opts);
@@ -111,14 +116,13 @@ if flag==2
     figure
     semilogy(1:1:(numel(f2(1,:))),f2(1,:),'-ob','LineWidth',LW)
     hold on
-    %semilogy(1:1:(numel(f2(2,:))),f2(2,:),'-*r','LineWidth',LW)
+    semilogy(1:1:(numel(f2(2,:))),f2(2,:),'-*r','LineWidth',LW)
     semilogy(1:1:(numel(f)),f,'-*c','LineWidth',LW)
     xlabel('$j$','Interpreter','Latex')
 
     set(gca,'Fontname',FN,'Fontsize',FS);
     set(gcf, 'Color', 'w');
 
-    
     %fig3b
     figure
     plot(mulist(1,:),mulist(2,:),'bo')
@@ -138,7 +142,6 @@ if flag==2
     set(gca,'Fontname',FN,'Fontsize',FS);
     set(gcf, 'Color', 'w');
 
-    
 end
 if flag==3
     %% The affine decompossition
@@ -161,6 +164,7 @@ if flag==3
     %% RUN ALGORITHM 2 [1]
     [f,Ared,mulist,eiglist,pars] = approx_smallesteig_all(A,theta,theta_d,bounds,opts);
     profile off
+    profile viewer
     %% PLOT OPTIONS
     plot_opts.Nmu=80;
     plot_opts.sparse=issparse(A{1});
@@ -240,10 +244,10 @@ if flag==4
     %fig6a
     figure
     [v,ind]=sort(muvec);
-    semilogx(muvec(ind),eigvec(ind),'-b','LineWidth',LW)
+    loglog(muvec(ind),eigvec(ind),'-b','LineWidth',LW)
     hold on
-    semilogx(muvec_sub(ind),eigvec_sub(ind),'--r','LineWidth',LW)
-    semilogx(mulist,eigvec(plot_opts.Nmu+1:end),'*b','LineWidth',LW)
+    loglog(muvec_sub(ind),eigvec_sub(ind),'--r','LineWidth',LW)
+    loglog(mulist,eigvec(plot_opts.Nmu+1:end),'*b','LineWidth',LW)
 
     xlabel('$\mu$','Interpreter','Latex')
     lgd=legend('$\sigma_{{\min}}(\mu)$','$\sigma^{\mathcal{V}}_{{\min}}(\mu)$', '$\sigma(\mu_j)$','Location','best');
@@ -261,18 +265,7 @@ if flag==4
     set(gca,'Fontname',FN,'Fontsize',FS);
     set(gcf, 'Color', 'w');
 
-    
     %fig6c
-    figure
-    semilogy(1:1:(numel(f)),f,'-ob','LineWidth',LW)
-    xlabel('$j$','Interpreter','Latex')
-    ylabel('$S_r^{(j)}(\mu_j)$','Interpreter','Latex')
-
-    set(gca,'Fontname',FN,'Fontsize',FS);
-    set(gcf, 'Color', 'w');
-
-
-    %fig6d
     cumulativeSum_dimV = cumsum(dimV);
     figure
     plot(1:1:(numel(dimV)),cumulativeSum_dimV,'-ob','LineWidth',LW)
@@ -307,7 +300,6 @@ if  flag==5
     theta_AA = @(x)[(0.5*x(1)^2)^2, (x(2))^2,0.5*x(2)*x(1)^2];
     theta_d_AA = @(x)[x(1)^3, 0; 0, 2*x(2); x(2)*x(1), 0.5*x(1)^2];
     %% Options to run the problem
-    % Estimate Condition Number of the Problem
     opts.Flag_Cond=1;
     opts.opt_method = 1;
     opts.tol = 1e-4;
@@ -362,7 +354,7 @@ if  flag==5
     set(gca,'Fontname',FN,'Fontsize',FS);
     set(gcf, 'Color', 'w');
 
-    
+    Int_Val=zeros(1,numel(mulist(2,:)));
     for j=1:numel(mulist(2,:))
         Int_Val(j)=eiglist{j}(2,1);
     end
@@ -413,18 +405,20 @@ if flag==6
     opts.Flag_Cond=1;
     opts.opt_method = 1;
     opts.Nt = 1000;
-    opts.Flag_Cond=1;
     opts.tol = 1e-6;
-    opts.RSG_tol = 1e-8;
+    opts.RSG_tol = 1e-7;
     opts.Rel_Error = 1;
     opts.SIN = 1; % flag variable for special initialization of the subspaces, see Sec. 7.3 [1]
     opts.EigOptMaxIt = 2000;
     opts.RSG_tol = -4e3;
     %% RUN ALGORITHM 3 [1]
-    % Note: go into the code and uncomment some functions oterwhise it
-    % takes too much time.
-    [f,f2,curerror,mu,Ared,thetalist,mulist,eiglist,dimU,dimV,pars] = ...
-        approx_smallestsig_all(A,AA,theta,theta_AA,theta_d,theta_d_AA,bounds,opts);
+    % Alg2+Alg3
+    [f,f2,curerror,~,Ared,thetalist,mulist,eiglist,dimU,dimV,pars] = ...
+        approx_PS(A,AA,theta,theta_AA,theta_d,theta_d_AA,bounds,opts);
+    % Alorithm 2
+    opts.flag_Alg3 = 0;
+    [~,f3,curerror_2,mu_2,Ared_2,thetalist_2,mulist_2,eiglist_2,dimU_2,dimV_2,pars_2] = ...
+        approx_PS(A,AA,theta,theta_AA,theta_d,theta_d_AA,bounds,opts);
     profile off
     %% PLOT OPTIONS
     plot_opts.Nmu=[40,40];
@@ -453,13 +447,15 @@ if flag==6
     figure
     semilogy(1:1:numel(f),f,'-ob','LineWidth',LW)
     hold on
+    semilogy(1:1:numel(f3),f3,'-+k','LineWidth',LW)
     semilogy(numel(f)+1:1:numel(f2),f2(numel(f)+1:1:numel(f2)),'--or','LineWidth',LW)
     xlabel('$j$','Interpreter','Latex')
     ylabel('$S^{(j)}_r(\mu_j)$','Interpreter','Latex')
+    lgd=legend('Alg. 3','Alg. 2 + Alg. 3','Alg. 2','Location','best');
+    set(lgd,'Interpreter','Latex');
 
     set(gca,'Fontname',FN,'Fontsize',FS);
     set(gcf, 'Color', 'w');
-
 
     %Absolute Error
     figure

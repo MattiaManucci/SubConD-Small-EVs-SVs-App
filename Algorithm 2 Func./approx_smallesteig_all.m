@@ -1,4 +1,5 @@
 function [ff,Ared,mulist,eiglist,pars] = approx_smallesteig_all(A,theta,thetap,bounds,options)
+%% [1] M. Manucci, E. Mengi and N. Guglielmi, arxiv 2024 
 %% Some useful inizializations
 if isfield(options,'num_init_inter')
     num_init_inter = options.num_init_inter;
@@ -94,7 +95,7 @@ for j = 1:num_init_inter
     if sp
         i=1;
         [V,D] = eigs(Amu,ne(j)+1,'smallestreal',opts);
-        while (abs(D(1)-D(2))/abs(D(1)))<options.RSG_tol
+        while (abs(D(1,1)-D(end,end)))<options.RSG_tol
             ne(j)=ne(j)+1;
             [V,D] = eigs(Amu,ne(j)+1,'smallestreal',opts);
         end
@@ -105,7 +106,7 @@ for j = 1:num_init_inter
         [V,D] = eig(Amu);
         [eigAj,inds] = sort(diag(D));
         for i=1:n
-           if abs((eigAj(i)- eigAj(i+1)))/abs(eigAj(i))>options.RSG_tol %Check if expression is corrected
+           if abs((eigAj(i)- eigAj(i+1)))>options.RSG_tol %Check if expression is corrected
                ne(j)=i;
                break
            end
@@ -188,7 +189,7 @@ while (curerror > tol)
     if sp==1
         
         [V,D] = eigs(Amu,ne(iter)+1,'smallestreal',opts);
-        while (abs(D(1)-D(2))/abs(D(1)))<options.RSG_tol
+        while (abs(D(1,1)-D(end,end)))<options.RSG_tol
             ne(iter)=ne(iter)+1;
             [V,D] = eigs(Amu,ne(iter)+1,'smallestreal',opts);
         end
@@ -200,7 +201,7 @@ while (curerror > tol)
         [V,D] = eig(Amu);
         [eigAj,inds] = sort(diag(D));
         for i=1:n
-           if abs((eigAj(i)- eigAj(i+1)))/abs(eigAj(i))>options.RSG_tol %Check if expression is corrected
+           if abs((eigAj(i)- eigAj(i+1)))>options.RSG_tol %Check if expression is corrected
                ne(iter)=i;
                break
            end

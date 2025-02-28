@@ -1,5 +1,5 @@
 function [ff,ff2,curerror,mu,Ared,thetalist, ...
-                mulist, eiglist,dimU,dimV, pars] = approx_smallestsig_all(A,AA,theta,theta_AA,thetap,thetap_AA,bounds,options)
+                mulist, eiglist,dimU,dimV, pars] = approx_PS(A,AA,theta,theta_AA,thetap,thetap_AA,bounds,options)
 %% [1] M. Manucci, E. Mengi and N. Guglielmi, arxiv 2024 
 if isfield(options,'num_init_inter')
     num_init_inter = options.num_init_inter;
@@ -56,6 +56,11 @@ if isfield(options,'max_iter')
 else
     max_iter=1000;
 end
+if isfield(options,'flag_Alg3')
+    flag_A3=options.flag_Alg3;
+else
+    flag_A3=1;
+end
             
 ff=[];
 kappa = length(A);
@@ -84,11 +89,7 @@ if sp==1
             Bmin = svds(A{j},1,'smallest',opts); Bmin=Bmin^2;
         else
             Bmax = eigs(AA{j},1,'largestreal',opts);
-            if normest(imag(AA{j}))>eps
-                 Bmin = eigs(AA{j},1,'smallestabs',opts);
-            else
-                 Bmin = eigs(AA{j},1,'smallestreal',opts);
-            end
+            Bmin = eigs(AA{j},1,'smallestabs',opts);
         end
         if isnan(Bmin)
             Bmin=0;
@@ -135,6 +136,7 @@ end
 PV = []; PU = [];
 eiglist = [];
 
+sp=0;
 for j = 1:num_init_inter
 
     ne(j)=1; 
@@ -210,7 +212,9 @@ end
 %% MAIN LOOP
 tol2=tol;
 eiglist_2=eiglist;
-flag_A3=1;
+if flag_A3==0
+    ff2=[];
+end
 while ((curerror > tol)&&(iter<max_iter)) 
     
     ne(iter)=1;
