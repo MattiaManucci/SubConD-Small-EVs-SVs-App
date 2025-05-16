@@ -5,7 +5,7 @@ clc
 clearvars
 close all
 %% LEGEND OF NUMERICAL EXAMPLES
-fprintf('Please, have a look to the readme.md file. Matrices for test problem 3 have to be dowloanded; see readme.md:\n\n');
+fprintf('Please, have a look to the readme.md file.\n\n');
 pause(1)
 fprintf('Digit the corresponding integer number to run the test problem:\n\n');
 fprintf('1 for full Hermitian matrix with n=100 and 1 parameter\n');

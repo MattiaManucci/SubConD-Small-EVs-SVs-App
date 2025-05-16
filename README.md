@@ -30,8 +30,6 @@ eigopt: the folder containing the functions that perform the optimization over t
 
 Plot\_Functions: a folder that contains functions to visualise the numerical results. In particular: **func_plots** and **LB_ULB\_UB** are used to produce Figure 2 of [preprint][arxiv-url];
 
-<span style="color:red">**NOTE:**</span> download the test matrices for Example 2 [here][link-drive].
-
 
 ## Citing
 If you use this project for academic work, please consider citing our
