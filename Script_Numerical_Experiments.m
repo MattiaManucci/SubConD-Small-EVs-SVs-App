@@ -155,7 +155,7 @@ if flag==3
     bounds.ub = 4;
     %% Options to run the problem
     opts.opt_method = 1;
-    opts.num_init_inter=1;
+    opts.num_init_inter=2;
     opts.tol = 1e-8;
     opts.RSG_tol = 1e-7;
     opts.EigOptMaxIt=2000;
