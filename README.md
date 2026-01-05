@@ -8,23 +8,21 @@ eigenvalue by the one obtained by projecting the large matrix onto a suitable (s
 
 ##Code info:
 
-* **Script\_Numerical\_Experiments**: the main script to run to reproduce the numerical experiments of [preprint][arxiv-url].
-
-* **subspace\_SCMM**: script the reproduce the method described in [P. Sirković and D. Kressner][Ref1].
+* Each script, following their denomination, reproduces the corresponding Figure or Table data in [preprint][arxiv-url]; 
 
 Algorithm 2 Func.:
 
 * **approx\_smallesteig\_all**: corresponds to Algorithm 2 in [preprint][arxiv-url];
+* **approx\_smallesteig\_all\_hybrid**: corresponds to first using Algorithm 2 and then the [**SSCM**][Ref1], see [Section 6.2.1][arxiv-url];
 * **lamin\_error\_all**: given a parameter $\mu$ the function evaluates $H^{(j)}(\mu)$ (or $H_{r}^{(j)}(\mu)$), see  [preprint][arxiv-url]; 
+* **subspace\_SCMM**: script to run the [**SSCM**][Ref1] method;
 
 
 Algorithm 3 Func.:
 
-* **approx\_smallestsig\_all**: corresponds to Algorithm 3 plus Algorithm 2 for the smallest singular value, see [preprint][arxiv-url];
+* **SSSV\_EIGOPT**: stands for subspace smallest singular value (SSSV) with [EIGOPT][Ref2] and corresponds to Algorithm 3 in [preprint][arxiv-url];
+* **SSSV**: corresponds to use Algorithm 3 with a discrete grid;
 * **sigma\_error\_all**: given a parameter $\mu$ the function evaluates $S^{(j)}(\mu)$, see [preprint][arxiv-url]; 
-* **lamin\_error_all\_sig**: given a parameter $\mu$ the function evaluates $H^{(j)}(\mu)$ for the matrix $A(\mu)^{*}A(\mu)$, see [preprint][arxiv-url];
-* **approx_PS**: function used to produce Figure 8 of [preprint][arxiv-url];
-
 
 eigopt: the folder containing the functions that perform the optimization over the continuum domain $\mathcal{D}$, the software is developed by the authors of [EigOpt][Ref2];
 

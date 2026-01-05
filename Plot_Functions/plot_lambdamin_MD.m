@@ -14,7 +14,12 @@ for i=1:p
         mu{i}=logspace(log10(bounds.lb(i)-bounds.lb(i)+1),log10(bounds.ub(i)-bounds.lb(i)+1),Nmu(i));
         mu{i}=mu{i}+(bounds.lb(i))-1;
     else
-        mu{i}=linspace(bounds.lb(i),bounds.ub(i),Nmu(i));
+        if opts.rand(i)==1
+            seed=123; rng(seed);
+            mu{i}=bounds.lb(i)+(bounds.ub(i)-bounds.lb(i))*rand(Nmu(i),1);
+        else
+            mu{i}=linspace(bounds.lb(i),bounds.ub(i),Nmu(i));
+        end
     end
 end
 
@@ -23,7 +28,7 @@ indices = cell(1, p);
 allCombinations = cell2mat(cellfun(@(x) x(:), indices, 'UniformOutput', false));
 numCombinations = size(allCombinations, 1);
 
-for i=1:numCombinations
+parfor i=1:numCombinations
     currentCombination = allCombinations(i, :);
     v=[];
     for j=1:p

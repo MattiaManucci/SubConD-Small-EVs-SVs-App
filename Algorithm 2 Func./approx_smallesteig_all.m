@@ -52,7 +52,7 @@ pars.tol = tol*10^-1;
 pars.minmax = 1;
 
 curerror = 10000;
-opts.maxit=30000;
+opts.maxit=300000;
 
 %% Computing the box-constraints for the LP
 if sp==1
